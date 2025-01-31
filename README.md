@@ -1,6 +1,7 @@
 # login-app
 ![login screen](login.png)
-a secure, user-friendly, and effective login app 
+
+A secure, user-friendly, and effective login app 
 Key changes:
 
 Session tracking: The number of failed attempts is stored in the session ($_SESSION['failed_attempts']). 
