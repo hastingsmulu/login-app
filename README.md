@@ -1,5 +1,7 @@
-# A secure, user-friendly, and effective login app 
+# sign in demo app
+A secure, user-friendly, and effective login app using object oriented programming technique.
 
+# Key features:
 1. User Interface (UI)
 Design:
 Clean and Intuitive: The login page is visually appealing and easy to navigate.
