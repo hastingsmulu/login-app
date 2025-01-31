@@ -1,9 +1,8 @@
-# login-app
-A secure, user-friendly, and effective login app 
+# A secure, user-friendly, and effective login app 
+
 ![login screen](login.png)
 
-
-Key changes:
+# Key changes:
 
 Session tracking: The number of failed attempts is stored in the session ($_SESSION['failed_attempts']). 
 If the user exceeds the maximum allowed attempts, they are locked out for 30 minutes.
