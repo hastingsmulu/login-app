@@ -4,7 +4,6 @@ session_start();
 // Get the time remaining from the query string
 $time_remaining = isset($_GET['time_remaining']) ? intval($_GET['time_remaining']) : 0;
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,60 +12,93 @@ $time_remaining = isset($_GET['time_remaining']) ? intval($_GET['time_remaining'
     <title>Account Locked</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: white;
             margin: 0;
         }
-
         .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            position: relative;
+            background-color: #800000;
+            color: white;
+            padding: 20px 40px;
+            font-family: Consolas;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 400px;
+        }
+        .text {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .title {
+            text-align: left;
+        }
+        .time {
+            font-size: 32px;
+            font-weight: bold;
             text-align: center;
         }
-
-        h1 {
-            font-size: 1.8em;
-            color: #ff4757;
-            margin-bottom: 20px;
+        .time-remaining {
+            text-align: right;
         }
-
-        p {
-            font-size: 1.1em;
-            color: #555;
+        .striped {
+            width: 40px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                white,
+                white 5px,
+                rgba(255, 255, 255, 0.5) 5px,
+                rgba(255, 255, 255, 0.5) 10px
+            );
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
         }
-
-        #timer {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ff6b6b;
+        .corner-lines {
+            position: absolute;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            top: -15px;
+            left: -15px;
+            pointer-events: none;
         }
-
-        .redirect-message {
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #888;
+        .corner-lines::before, .corner-lines::after, .corner-lines span::before, .corner-lines span::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 2px solid #800000;
         }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 90%;
-            }
-
-            h1 {
-                font-size: 1.5em;
-            }
-
-            p {
-                font-size: 1em;
-            }
+        .corner-lines::before {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+        .corner-lines::after {
+            top: 0;
+            right: 0;
+            border-left: none;
+            border-bottom: none;
+        }
+        .corner-lines span::before {
+            bottom: 0;
+            left: 0;
+            border-right: none;
+            border-top: none;
+        }
+        .corner-lines span::after {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
         }
     </style>
     <script>
@@ -77,12 +109,13 @@ $time_remaining = isset($_GET['time_remaining']) ? intval($_GET['time_remaining'
             let timerDisplay = document.getElementById('timer');
 
             let countdown = setInterval(() => {
+				 let hours = Math.floor(timeRemaining / 3600);
                 let minutes = Math.floor(timeRemaining / 60);
                 let seconds = timeRemaining % 60;
 
                 seconds = seconds < 10 ? '0' + seconds : seconds;
 
-                timerDisplay.textContent = `${minutes}:${seconds}`;
+                timerDisplay.textContent = `-00:0${hours}:${minutes}:${seconds}`;
                 timeRemaining--;
 
                 // When the time runs out, redirect to login
@@ -94,14 +127,17 @@ $time_remaining = isset($_GET['time_remaining']) ? intval($_GET['time_remaining'
         }
 
         window.onload = startCountdown;
-    </script>
-</head>
+    </script></head>
 <body>
     <div class="container">
-        <h1>Account Locked</h1>
-        <p>Your account has been temporarily locked due to multiple failed login attempts.</p>
-        <p>Please wait for <span id="timer"></span> before trying again.</p>
-        <p class="redirect-message">You will be redirected to the login page automatically when the timer ends.</p>
+        <div class="corner-lines"><span></span></div>
+        <div class="striped"></div>
+        <div class="text">
+           <div class="title" style=" width: 200px; height: 20px;">Account locked temporarily</div>
+            <div class="time" id="timer"></div>
+            <div class="time-remaining"  style=" width: 350px;">Time Remaining</div>
+        </div>
     </div>
+
 </body>
 </html>
