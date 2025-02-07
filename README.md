@@ -28,7 +28,7 @@ Security Measures:
 Input Validation: Sanitize all user input to prevent security vulnerabilities like SQL injection.
 Rate Limiting: Implement measures to limit the number of login attempts to prevent brute-force attacks.
 
-![login screen](login.png)
+![login screen](templet1.png)
 
 # Key changes:
 
@@ -37,7 +37,7 @@ If the user exceeds the maximum allowed attempts, they are locked out for 30 min
 
 Lockout mechanism: A timestamp ($_SESSION['lockout_time']) is recorded when the user is locked out, and login attempts are blocked until 30 minutes have passed.
 
-![Countdown timer](nano.png)
+![Countdown timer](template 3.png)
 
 Countdown timer: The lockout.php page shows a countdown timer that refreshes every second and redirects the user to the login page when the lockout period ends.
 With these changes, the application should now protect against brute-force attacks by enforcing a timeout after three failed login attempts.
